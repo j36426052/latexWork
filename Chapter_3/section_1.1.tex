@@ -1,0 +1,606 @@
+\documentclass
+[answers]
+{exam}
+
+\linespread{1.1}
+
+\usepackage{amsmath, amssymb, amsthm}  %% 數學符號用txfonts
+\usepackage{mathrsfs} 
+%\usepackage{pstricks,pstricks-add} % 引入 pstricks 和 pstricks-add 套件 (繪圖套件) 
+%插入GGB圖片===================================
+\usepackage{pgf,tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+%=============================================
+\usepackage{graphicx}   %% 插入圖片用
+\usepackage{float}  %%強制插入圖片位置
+\usepackage{caption}
+\usepackage{subfigure}
+\usepackage{color}
+%\usepackage{minitoc}   %chapter下的小目錄
+\usepackage{colortbl}
+\usepackage{nopageno}
+\usepackage{cases}
+\usepackage{textcomp}             % for \textcelsius
+\renewcommand{\arraystretch}{1.2} % 將表格行間距加大為原來的 1.2 倍
+\arrayrulewidth=1pt               % 調整線條粗細為 1pt
+\tabcolsep=15pt                   % 調整欄間距為 24pt
+
+
+%\begin{figure}[h]
+%\includegraphics[scale=1.2]{./figure/2.png}
+%\end{figure}
+
+\usepackage{wrapfig}  %%圖文並排
+
+%\begin{wrapfigure}{r}{6cm}  r：圖片靠右  6cm：離右邊6cm
+%	\centering  圖片在右邊區塊的中間
+%	\includegraphics[scale=0.6]{./figure/19.png}
+%\end{wrapfigure}
+
+\usepackage{tcolorbox}  %% 顏色方框
+\usepackage{tikz}  %%繪製流程圖、腦圖...
+\usepackage{array}  %%陣列
+\usepackage{booktabs} %調整表格線與上下內容的間隔
+\usepackage{multirow}
+\usepackage{enumitem}
+%可改enumerate的label
+\usepackage{tasks}  %%選擇題
+\settasks{label=(\Alph*),
+		  label-width=3.5ex,
+		  label-offset={0.4em},
+		  label-align=left,
+		  column-sep={1pt},
+		  item-indent={21pt}, %%選項前後
+		  before-skip={-0.7em},
+		  after-skip={-0.7em}}
+%[label=(\Alph*),label-width=4ex]  
+%\Alph* 選項ABCD  \alph* 選項abcd  \arabic* 選項1234 \roman*羅馬數字
+\usepackage{framed}  %%框框
+%出入單行字加框  \framebox[\width]{我是一段话}
+
+%插入圖片 \rightline{\includegraphics[scale=1.2]{./chapter_1/figure/1.png}}
+\usepackage{diagbox}  %%斜線表格頭
+\usepackage{ulem}
+%\sout{文字} 刪除線		\uwave{文字} 波浪線
+%\xout{文字} 斜刪除線		\uuline{文字} 雙下划線
+\usepackage[margin=2cm]{geometry} %邊界設定
+\usepackage[export]{adjustbox} %插入圖片
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+%%[是否開啟目錄顏色,目錄顏色設定]{超連結}
+
+%\usepackage{fancyhdr}  %%這兩行是頁首頁尾
+%\pagestyle{fancy}  %%頁首頁尾格式
+%\fancypagestyle{plain}{}
+%\renewcommand{\headrulewidth}{0.4pt}  %%頁首下方直線厚度
+%\cfoot{觀念解數學--~\thepage~--態度解人生}
+%\fancyhead{} % 清除所有頁首設定
+%\fancyhead[RO,LE]{\thechapter}
+%\fancyfoot{} % 清除所有頁尾設定
+%\fancyfoot[LE,RO]{第~\thepage~頁}      % 頁碼放在偶數頁的左邊及奇數頁的右邊
+%\fancyfoot[LO,CE]{奇數頁左及偶數頁中}
+%\fancyfoot[CO,RE]{奇數頁中及偶數頁右}
+% Texmaker使用者: 上方選擇XeLaTeX後再編譯
+\usepackage{xeCJK}   % Chinese input settings
+\setCJKmainfont{標楷體} % Windows使用者請使用這行
+\setmainfont{Times New Roman}
+\defaultCJKfontfeatures{AutoFakeBold=0.5,AutoFakeSlant=0} %以後不用再設定粗斜
+\newCJKfontfamily\WC{華康行楷體W5}                       
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip = 0pt plus 1pt
+%%上兩行才能讓中文自動換行
+\makeatletter
+\def\rightharpoonfill@{\arrowfill@\relbar\relbar\rightharpoonup}
+\newcommand{\vect}{\mathpalette{\overarrow@\rightharpoonfill@}}
+\makeatother
+%向量
+
+%\renewcommand{\qedsymbol}{}
+\newcommand{\R}{\mathbb{R}} %mathbb 雙行粗體
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\S}{\mathbb{S}}
+\newcommand{\f}{\ensuremath{\mathcal{F}}} 
+%%\ensuremath  非數學模式自動加上$符號
+\newcommand\norm[1]{\left\lVert#1\right\rVert}
+\newcommand\abs[1]{\left| #1\right| }
+\newcommand\ul[1]{\uline{\hspace*{#1}}}
+\newcommand\px{\mathrel{/\mkern-5mu/}}  %平行
+%文繞圖 wrapfigure 和 條列式環境 item 並列, 需在 enumerate 環境之中
+%\itemwrap{<先用 \begin{wrapfigure} 環境插入圖片, 再接著文字>}
+\newcommand{\itemwrap}[1]{
+	\item \parbox[t]{\dimexpr\textwidth-\leftmargin}{
+		\vspace{-3.2mm}#1}}
+
+%\itemwraps{<需縮排的行數>}{<圖片寬度(配合上面寬度)>}{<文字>}
+\newcommand{\itemwraps}[3]{
+	\item \parbox[t]{\dimexpr\textwidth-\leftmargin}{%
+		\vspace{-3.2mm}
+		\begin{wrapfigure}[#1]{r}{#2}
+		\end{wrapfigure}#3}}
+
+
+\newif\ifqr\qrfalse %QR
+\newcommand{\qr}[1]{\ifqr\relax\else #1\fi} 
+%教用學生版 %一鍵隱藏答案  \true隱藏  \false顯示
+
+\newif\ifans\ansfalse
+\newcommand{\ans}[1]{\ifans\relax\else\framebox{#1}\fi} 
+
+\DeclareMathOperator{\sign}{sign} %sign為非斜體
+
+\parindent=0pt  %%首行空格
+\renewcommand{\qedsymbol}{}  %證明後面沒方格
+
+%\theoremstyle{remark}
+%\newtheorem{prop}{Proposition}
+%\newtheorem{thm}[prop]{Theorem}   %% 編號跟著 prop 走
+%\newtheorem*{thm}{Theorem}   %% 有自己的編號
+%\newtheorem{lem}{\underline{Lemma}}
+%\newtheorem*{rmk}{\bf{\underline{Remark}}}
+%\newtheorem*{ex}{\underline{Examples}}
+%\newtheorem{cor}{Corollary}
+%\newtheorem*{coro}{Corollary}
+%\newtheorem{lem}[thm]{Lemma}
+\theoremstyle{definition}
+%\newtheorem*{defn}{Definition}
+\newtheorem{foc}{\WC\underline{\Large{焦點}}}[section]
+\newtheorem*{pra}{\WC\underline{\Large{隨堂小練}}}
+\newtheorem*{hw}{\WC\underline{\Large{課後練功坊}}}
+\newtheorem*{suyu}{\WC\underline{\Large{素養挑戰題}}}
+%有*是無編號  無*是有編號
+% Authur information
+%\title{標題}
+%\author{作者}
+%\date{日期}
+
+%\begin{document}
+%\renewcommand{\qedsymbol}{}  %證明後面沒方格
+%\maketitle   %此功能為是否顯示title
+%\fontsize{20pt}{25pt}\selectfont  %%目錄字體大小
+%\tableofcontents  %%目錄
+
+%\fontsize{12pt}{25pt}\selectfon
+
+
+%===================================================================
+
+\title{{\Huge{\WC{第一冊習題詳解本}}}}
+\author{}
+\date{}
+
+\begin{document}
+
+%\fontsize{20pt}{25pt}\selectfont  %%目錄字體大小
+%\tableofcontents  %目錄
+\let\cleardoublepage\clearpage
+\fontsize{12pt}{25pt}\selectfont  %%內文字體大小
+\newpage
+%-----------------------------------------------------
+\maketitle
+\section{\WC{直線方程式}}
+\subsection{~}
+\subsubsection{直角坐標與斜率}
+\begin{questions}
+
+%cas_1
+\question
+設$A \left( 1,3\right)$、$B \left( -1,2\right)$、$C \left( 5,8\right)$，若$ABCD$為平行四邊形，則D點的座標為\ul{50pt}。
+\\ \rightline{【北一】}
+
+\begin{solution}~\\
+	$\left( 7,9 \right)$
+\end{solution}
+
+%cas_2
+\question
+
+設$A\left( 2,-3\right)$、$\left( 1,-4\right)$，求直線$AB$的斜率為\ul{50pt}。
+\\ \rightline{【樹林】}
+\begin{solution}~\\
+	$1$
+\end{solution}
+
+$ $\\$ $\\$ $\\
+%cas_3
+\question
+
+直線$L$斜率為$-\dfrac{5}{12}$且過$A\left( 5,-8\right)$、$B \left( k,2\right)$，則k=\ul{50pt}。
+\\ \rightline{【中和】}
+\begin{solution}~\\
+	$-19$
+\end{solution}
+
+
+%cas_4
+\question
+
+用對於直線的斜率與截距，選出正確的選項。
+\begin{tasks}(1)
+	\task 斜率越大，直線的傾斜程度越大
+	\task 斜率為正的直線必通過第一象限
+	\task 直線的斜率有可能不存在
+	\task 截距必為正數或$0$
+	\task 已知直線$L$的$x$和$y$截距都存在，若$x$截距為$0$，則$y$截距亦為$0$
+\end{tasks}
+\rightline{【大直】}
+\begin{solution}~\\
+	(C)(E)
+\end{solution}
+
+%cas_5
+\question
+
+直線$L:y=mx + 2$上有兩點$A \left( 1,a\right)$、$B \left( 2,b \right)$，$a,b \in \mathbb{R}$。若$\overline{AB}=5\sqrt{2}$，試求$m=$\ul{50pt}
+\\ \rightline{【竹北】}
+\begin{solution}~\\
+	$\pm7$
+\end{solution}
+
+%cas_6
+\question
+
+
+\begin{minipage}[t]{0.7\linewidth}
+	已知$ABCDEFG$為正七邊形，$B$，$E$在$x$軸上，$G$在$y$軸上，如圖，請問哪一條線段在直角坐標上的斜率之值最小？
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.3\linewidth}
+	\vspace*{-0.3cm}
+	\includegraphics[scale=1]{./chapter_3/figure/1.png}
+	\raggedleft %靠右對齊
+\end{minipage}
+
+\begin{tasks}(5)
+	\task $\overline{EF}$
+	\task $\overline{AG}$
+	\task $\overline{AB}$
+	\task $\overline{BC}$
+	\task $\overline{DE}$
+\end{tasks}
+\rightline{【成淵】}
+\begin{solution}~\\
+	(A)
+\end{solution}
+
+%cas_7
+
+
+
+
+\question
+
+\begin{minipage}[t]{0.7\linewidth}
+	如下圖所示，座標平面上一鳶形$ABCD$，其中$A$，$C$在$y$軸上，$B$，$D$在$x$軸上，且$\overline{AB} = \overline{AD} = 2$，$\overline{BC} = \overline{CD} = 4$，$\overline{AC}=5$。令$m_{\overline{AB}}$，$m_{\overline{BC}}$，$m_{\overline{CD}}$，$m_{\overline{DA}}$分別表直線$AB$，$BC$，$CD$，$DA$之斜率。試問以下那些敘述成立？
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.3\linewidth}
+	\vspace*{-0.3cm}
+	\includegraphics[scale=1]{./chapter_3/figure/2.png}
+	\raggedleft %靠右對齊
+\end{minipage}
+\begin{tasks}(3)
+	\task 此四數值中以$m_{\overline{AB}}$為最大
+	\task 此四數值中以$m_{\overline{BC}}$為最小
+	\task $m_{\overline{BC}} = -m_{\overline{CD}}$
+	\task $m_{\overline{AB}} \times m_{\overline{BC}} = -1$
+	\task $m_{\overline{CD}} + m_{\overline{DA}} > 0$
+\end{tasks}
+\rightline{【94學測】}
+\begin{solution}~\\
+	(B)(C)(E)
+\end{solution}
+$ $\\$ $\\$ $\\$ $\\$ $\\
+%cas_8
+\question
+
+\begin{minipage}[t]{0.7\linewidth}
+	如圖，四邊形$ABCD$在桌標平面上，$\angle ADC = 90^{\circ}$，令$m_{AB}$，$m_{BC}$，$m_{CD}$，$m_{DA}$分別表直線$AB$，$BC$，$CD$，$DA$之斜率，請問以下哪些敘述成立($x$，$y$軸單位長為相等)
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.3\linewidth}
+	\vspace*{-0.3cm}
+	\includegraphics[scale=1]{./chapter_3/figure/3.png}
+	\raggedleft %靠右對齊
+\end{minipage}
+
+\begin{tasks}(3)
+	\task 此四數值中以$m_{BC}$為最大
+	\task 此四數值中以$m_{AB}$為最小
+	\task $m_{CD} = -m_{DA}= -1$
+	\task $m_{CD} \times m_{BC} > -1$
+	\task $m_{DA} + m_{CD} > 0$
+\end{tasks}
+\rightline{【中山】}
+\begin{solution}~\\
+	(B)(C)(D)(E)
+\end{solution}
+
+
+%cas_9
+\question
+
+\begin{minipage}[t]{0.7\linewidth}
+	觀察圖中線段的斜率，試問下列選項何者為真？
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.3\linewidth}
+	\vspace*{-0.3cm}
+	\includegraphics[scale=1]{./chapter_3/figure/4.png}
+	\raggedleft %靠右對齊
+\end{minipage}
+
+\begin{tasks}(2)
+	\task $\overline{OA}$的斜率最小
+	\task $\overline{AB}$的斜率最大
+	\task $\overline{BC}$的斜率最小
+	\task $\overline{CD}$的斜率介於$0$，$1$之間
+	\task $\overline{OD}$的斜率介在$1$，$2$之間。
+\end{tasks}
+\rightline{【南一中】}
+\begin{solution}~\\
+	(B)(C)(E)
+\end{solution}
+
+$ $\\$ $\\$ $\\
+%cas_10
+\question
+
+\begin{minipage}[t]{0.7\linewidth}
+	右圖之$12$個點(左右、上下間格相同)，則由這些點連成之直線共有\ul{50pt}種方向。
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.3\linewidth}
+	\vspace*{-0.3cm}
+	\includegraphics[scale=1]{./chapter_3/figure/5.png}
+	\raggedleft %靠右對齊
+\end{minipage}
+\\ \rightline{【道明】}
+\begin{solution}~\\
+	12
+\end{solution}
+
+
+%cas_11
+\question
+
+\begin{minipage}[t]{0.7\linewidth}
+	途中是座標平面上的十六個點（左、右、上、下間格均相等），這些點中任意兩點連成直線不考慮無斜率的情形，則斜率最小者為下列哪一個數值?
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.3\linewidth}
+	\vspace*{-0.3cm}
+	\includegraphics[scale=1]{./chapter_3/figure/6.png}
+	\raggedleft %靠右對齊
+\end{minipage}
+
+\begin{tasks}(5)
+	\task $-4$
+	\task $-3$
+	\task $-2$
+	\task $-1$
+	\task 以上皆非
+\end{tasks}
+\rightline{【花蓮】}
+\begin{solution}~\\
+	(B)
+\end{solution}
+
+%cas_12
+\question
+
+\begin{minipage}[t]{0.7\linewidth}
+	如圖所示，直線$L$分別與$x$軸、$y$軸交於$A$、$B$，已知$C\left( 4,9 \right)$在$L$上，且$4\overline{AB}=\overline{BC}$，試問直線$L$之斜率為下列何值？
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.3\linewidth}
+	\vspace*{-0.3cm}
+	\includegraphics[scale=1]{./chapter_3/figure/7.png}
+	\raggedleft %靠右對齊
+\end{minipage}
+
+
+\begin{tasks}(5)
+	\task $\dfrac{1}{2}$
+	\task $\dfrac{2}{3}$
+	\task $1$
+	\task $\dfrac{3}{2}$
+	\task $\dfrac{9}{5}$
+\end{tasks}
+\rightline{【鳳山】}
+\begin{solution}~\\
+	(E)
+\end{solution}
+
+%cas_13
+\question
+
+\begin{minipage}[t]{0.7\linewidth}
+	如圖，$\triangle OAB$與$\triangle OPQ$對應全等，若過$O$，$A$兩點的直線斜率為k，試問過$O$、$P$兩點的直線斜率為何？
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.3\linewidth}
+	\vspace*{-0.3cm}
+	\includegraphics[scale=1]{./chapter_3/figure/8.png}
+	\raggedleft %靠右對齊
+\end{minipage}
+
+\begin{tasks}(4)
+	\task $\dfrac{1}{k}$
+	\task $k$
+	\task $-\dfrac{1}{k}$
+	\task $-k$
+\end{tasks}
+\rightline{【附中】}
+\begin{solution}~\\
+	(D)
+\end{solution}
+
+%cas_14
+\question
+
+\begin{minipage}[t]{0.7\linewidth}
+	座標平面上有一個正方形，其中有一邊所在的直線斜率為$5$，而此正方形兩對角線所在的直線斜率分別為$m_1$，$m_2$，且$m_1 < m_2$，則$m_1=$\ul{50pt}。
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.3\linewidth}
+	\vspace*{-0.3cm}
+	\includegraphics[scale=1]{./chapter_3/figure/9.png}
+	\raggedleft %靠右對齊
+\end{minipage}
+\\ \rightline{【嘉女】}
+\begin{solution}~\\
+	$-\dfrac{3}{2}$
+\end{solution}
+
+%cas_15
+\question
+
+設$y = f(x)$為一線性函數通過兩點$A\left( -1,-1\right)$、$B\left( 2,5\right)$，則$\dfrac{f(4321)-f(1234)}{4321-1234} = $\ul{50pt}
+\\ \rightline{【明倫】}
+\begin{solution}~\\
+	$2$
+\end{solution}
+
+$ $\\
+%cas_16
+\question
+
+已知一次函數$f(x)$通過兩點$\left( -2,15\right)$與$\left( 4,6\right)$，則$f(2016)-f(2014)=$\ul{50pt}。
+\\ \rightline{【松山】}
+\begin{solution}~\\
+	$-3$
+\end{solution}
+
+%cas_17
+\question
+
+已知一次函數$f(x)=ax+b$，每當$x$增加$2$單位時，其對應的函數值減少$6$單位，又已知$f(1)=5$，則下列哪些選項正確？
+
+\begin{tasks}(1)
+	\task $y=f(x)$之圖形斜率為$3$
+	\task $y=f(x)$之圖形的$y$截距為$\left( 0,8\right)$
+	\task $y=f(x)$之圖形不通過第三象限
+	\task $y=f(x)$之圖形對於$x$軸的對稱圖形之方程式為$-y=ax+b$
+	\task $y=f(x)$之圖形可由函數$y=g(x)=ax$的圖形向上平移$8$單位而得
+\end{tasks}
+\rightline{【內湖】}
+\begin{solution}~\\
+	(B)(C)(D)(E)
+\end{solution}
+$ $\\$ $\\$ $\\$ $\\
+%cas_18
+\question
+
+若$A\left( 3,-2\right)$、$B\left( 1,4\right)$、$C\left( k,1\right)$三點共線，則$k=$\ul{50pt}
+\\ \rightline{【明倫】}
+\begin{solution}~\\
+	$2$
+\end{solution}
+
+%cas_19
+\question
+
+已知直線$y=ax+b$的圖形上$A\left( 2,-2\right($、$B\left(k+2,0\right)$、$C\left(k-8,-5\right)$三點，則序組$\left( a,b,k \right) =$\ul{50pt}。
+\\ \rightline{【板中】}
+\begin{solution}~\\
+	$\left(  \dfrac{1}{2},-3,4  \right)$
+\end{solution}
+
+%cas_20
+\question
+
+今日環保局由報案專線接獲三位民眾投訴住家附近有工廠在偷排放濃硝酸，造成嚴重空汙。環
+保局便立即指派欽欽、秀秀、惠惠三位稽查員前往稽查，若經查獲屬實者，環保局將依空氣汙
+染防治法重罰$100$萬元罰鍰。已知欽欽從環保局出發，向北行駛$8$公里，再向西行駛$3$公里抵達第一位民眾投訴地點；秀秀從環保局出發，向南行駛$k$公里，再向東行駛$10$公里抵達第二
+位民眾投訴地點；惠惠從環保局出發，向東行駛$4$公里，再向北行駛$k$公里抵達第三位民眾投
+訴地點。若三個投訴地點位於同一直線上，則正數$k$之值為\ul{50pt}。
+\\ \rightline{【丹鳳】}
+\begin{solution}~\\
+	$\dfrac{12}{5}$
+\end{solution}
+
+
+%cas_21
+\question
+
+座標平面上有四點$A\left(-3,1\right)$、$B\left(3,2 \right)$、$C\left( k,5 \right)$、$D\left( -1,4\right)$，若直線$AB$垂直直線$CD$，則$k=$\ul{50pt}
+\\ \rightline{【成淵】}
+\begin{solution}~\\
+	$-\dfrac{7}{6}$
+\end{solution}
+
+%cas_22
+\question
+
+已知$A\left(3,-2\right)$、$B\left(-1,0 \right)$、$C\left( 2,k \right)$為$\triangle ABC $的三頂點且$ \angle A = 90^{\circ}$，求$k=$\ul{50pt}
+\\ \rightline{【明倫】}
+\begin{solution}~\\
+	$-4$
+\end{solution}
+
+%cas_23
+\question
+
+已知三點$A\left( 1,2\right($、$B\left( 3,6 \right)$、$C\left(4,k\right)$，$k\in \mathbb{R}$。若$\triangle ABC$為直角三角形，求$k$之值為\ul{50pt}
+\\ \rightline{【竹北】}
+\begin{solution}~\\
+	$\dfrac{1}{2}  \vee \dfrac{11}{2} \vee 3 \vee 5$
+\end{solution}
+$ $\\$ $\\$ $\\
+%cas_24
+\question
+
+平面上有$A\left(0,0\right)$、$B\left( 10,0\right)$、$C\left( k,4\right)$共三點，且$\triangle ABC$為直角三角形，選出$k$的解個數。
+\begin{tasks}(5)
+	\task $1$
+	\task $2$
+	\task $3$
+	\task $4$
+	\task 無限多解
+\end{tasks}
+\rightline{【大直】}
+\begin{solution}~\\
+	(D)
+\end{solution}
+
+
+%cas_25
+\question
+
+座標平面上，已知過點$P\left( 5,4\right)$做互相垂直的兩直線與$x$軸焦於兩點$A,B$，若$\overline{AB}=10$，且$A,B$的中點座標為$\left( t,0 \right)$，則$t=$\ul{50pt}
+\\ \rightline{【西松】}
+\begin{solution}~\\
+	$2$或$8$
+\end{solution}
+
+%cas_26
+\question
+
+設$a,b$為實數，若點$\left( 3,2\right)$對直線$2x+3y+a=0$的垂足為$\left( b,-1 \right)$，則數對$\left( a,b\right) = $\ul{50pt}
+\\ \rightline{【中女中】}
+\begin{solution}~\\
+	$\left( 1,1 \right($
+\end{solution}
+$ $\\$ $\\$ $\\$ $\\
+%cas_27
+\question
+
+平面上有一個等腰直角三角形，已知其三邊長的斜率分別為$m_1$、$m_2$、$m_3$，且$m_1>m_2>m_3$，請選出正確的選項。
+
+\begin{tasks}(5)
+	\task $m_1 > 0$
+	\task $m_2 \leq 0$
+	\task $m_3 < 0$
+	\task $m_1 = -m_3$
+	\task $m_1m_3=-1$
+\end{tasks}
+\rightline{【建中】}
+\begin{solution}~\\
+	(A)(C)
+\end{solution}
+
+\end{questions}
+
+\end{document}
